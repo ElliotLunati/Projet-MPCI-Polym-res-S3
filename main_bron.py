@@ -17,7 +17,7 @@ while True:
         P = G.keys()
         combinations = list(bron_kerbosch(P, G))
         print(combination_max(combinations))
-    if a == 2:
+    if a == 2:                                              # Encore long à tourner car la base de données comporte 43 marqueurs (10/15s pour s'exécuter)
         g = find_optimal_final_tag()
         solutions = g[0]  # combinaisons
         final_tag = g[1]  # marqueur final optimal qui permet d'obtenir ces combinaisons
