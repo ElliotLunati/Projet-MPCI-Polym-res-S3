@@ -11,7 +11,7 @@ def get_adjacency_dict(list_tags):    # ex list_tags : [(C7H7, 91), ...]
         for tag2 in list_tags:
             if compatible(tag1[1], tag2[1]):
                 adjacency_dict[tag1[0]].add(tag2[0])
-    return adjacency_dict            # compatibilité marqueurs
+    return adjacency_dict            # compatibilité marqueurs entre eux ex: {'C7H7: {'CH4', ...}, ...}
 
 def get_adjacency_dict_no_tag_position(list_tags):    # ex list_tags : [(C7H7, 91), ...]
     adjacency_dict = {}
@@ -20,7 +20,7 @@ def get_adjacency_dict_no_tag_position(list_tags):    # ex list_tags : [(C7H7, 9
         for tag2 in list_tags:
             if compatibleMarqueurFinalDefini(tag1[1], tag2[1]):
                 adjacency_dict[tag1[0]].add(tag2[0])
-    return adjacency_dict            # compatibilité marqueurs
+    return adjacency_dict            # compatibilité marqueurs entre eux 
 
 
 def bron_kerbosch(P, G, R=None, X=None):
@@ -63,6 +63,7 @@ def find_optimal_final_tag():
         adj_dict = get_adjacency_dict_no_tag_position(current_list)
         P = adj_dict.keys()
         combinations = final_tag_in_solution(combination_max(list(bron_kerbosch(P, adj_dict))), tag)
-        if len(combinations) >= len(output[0]):
+        if len(combinations[0]) >= len(output[0][0]) \       
+             and len(combinations) >= len(output[0]):        # on vérifie si la combinaison obtenue pour pour "tag" en tant que marqueur finale est meilleure que celle qu'on considère déjà comme la meilleure
             output = [combinations, tag]
     return output
